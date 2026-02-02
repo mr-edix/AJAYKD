@@ -1,13 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <img style="width: 100%; height: auto;" src="https://mr-edix.github.io/AJAYKD/IMG20240407200209.jpg" alt="" srcset="">
-    <img style="width: 100%; height: auto;" src="https://mr-edix.github.io/AJAYKD/IMG20231210154431.jpg" alt="" srcset="">
-</body>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Betu</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+	--bg1: #0b1224;
+	--bg2: #1b0f2e;
+	--pink: #f472b6;
+	--purple: #a855f7;
+	--blue: #38bdf8;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: radial-gradient(circle at top, #402060, var(--bg1));
+	font-family: 'Space Grotesk', sans-serif;
+	color: white;
+	overflow: hidden;
+}
+
+.wrapper {
+	text-align: center;
+	padding: 32px;
+}
+
+/* MAIN TEXT */
+
+.main {
+	font-size: clamp(22px, 5vw, 40px);
+	font-weight: 700;
+	margin-bottom: 40px;
+	opacity: 0;
+	animation: fadePop 1.2s ease forwards;
+}
+
+/* LOVE FROM TOP + RIGHT */
+
+.love {
+	font-size: clamp(28px, 6vw, 52px);
+	font-weight: 700;
+	background: linear-gradient(120deg, var(--pink), var(--purple));
+	-webkit-background-clip: text;
+	color: transparent;
+	opacity: 0;
+	animation: loveIn 1.4s ease forwards;
+	animation-delay: 1.5s;
+}
+
+/* BETU FROM BELOW */
+
+.betu {
+	margin-top: 12px;
+	font-size: clamp(24px, 5vw, 46px);
+	font-weight: 700;
+	color: var(--blue);
+	opacity: 0;
+	animation: betuUp 1.4s cubic-bezier(.19,1,.22,1) forwards;
+	animation-delay: 3.2s;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadePop {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes loveIn {
+	from {
+		opacity: 0;
+		transform: translate(120px, -120px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes betuUp {
+	from {
+		opacity: 0;
+		transform: translateY(140px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+	<div class="main">
+		THANKS FOR SAYING YES EVEN WHEN YOU HAVE TO SAY NO 😂😂
+	</div>
+
+	<div class="love">
+		I love you ❤️
+	</div>
+
+	<div class="betu">
+		Betu 💫
+	</div>
+</div>
+
+</body>
 </html>
