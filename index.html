@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pick the Pen</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+	--bg-1: #0f172a;
+	--bg-2: #111827;
+	--accent: #38bdf8;
+	--accent-2: #a855f7;
+	--text: #e5e7eb;
+	--muted: #9ca3af;
+}
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+	background: radial-gradient(circle at 20% 20%, #7d2c80, #0b1224 55%, #080c18);
+	color: var(--text);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.card {
+	position: relative;
+	width: min(480px, 100%);
+	padding: 32px;
+	border-radius: 24px;
+	background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+	overflow: hidden;
+}
+
+.orb {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(circle at 30% 20%, rgba(219, 56, 248, 0.22), transparent 45%),
+		radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.18), transparent 40%);
+	filter: blur(24px);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.content { position: relative; z-index: 1; }
+
+h1 {
+	margin: 0 0 12px;
+	font-size: 28px;
+	letter-spacing: -0.02em;
+}
+
+p {
+	margin: 0 0 24px;
+	color: var(--muted);
+	line-height: 1.5;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions {
+	position: relative;
+	height: 160px;
+	margin-top: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+/* Mobile: stack buttons */
+@media (max-width: 640px) {
+	.actions {
+		flex-direction: column;
+		height: 220px;
+	}
+}
+
+/* ================= BUTTONS ================= */
+
+.btn {
+	cursor: pointer;
+	border: none;
+	border-radius: 999px;
+	padding: 14px 22px;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	color: #0b1224;
+	background: linear-gradient(120deg, var(--accent), var(--accent-2));
+	box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+	transition: transform 0.2s ease,
+							box-shadow 0.2s ease,
+							opacity 0.3s ease;
+}
+
+.btn:hover {
+	transform: translateY(-1px) scale(1.02);
+	box-shadow: 0 14px 36px rgba(168, 85, 247, 0.35);
+}
+
+.btn:active {
+	transform: translateY(0) scale(0.99);
+}
+
+.btn-secondary {
+	position: absolute;
+	right: 0;
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--text);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(8px);
+}
+
+/* ================= END ================= */
+</style>
+</head>
+
+<body>
+<div class="card">
+	<div class="orb"></div>
+
+	<div class="content">
+		<h1>Will you be my Valentine?</h1>
+		<p>Hi Betu</p>
+
+		<div class="actions" id="arena">
+			<a class="btn" href="/kd.html">Yes</a>
+			<button class="btn btn-secondary" id="no-btn">No</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const arena = document.getElementById('arena');
+	const noBtn = document.getElementById('no-btn');
+
+	const phrases = [
+		'Chalo betu choco dila dunga. Yes bolo.',
+		'Momo or boba bhi dilaunga. Yes bolodo na',
+		'Godi v lunga or Germany leke jauga in future chlo ab yes bolo',
+        'Yes boldo na pyaara betu ho n',
+        'if you click no again magic will happen'
+	];
+
+	let hoverCount = 0;
+	let angle = 0;
+
+	const radius = window.innerWidth < 640 ? 90 : 70;
+
+	const moveButton = () => {
+		angle = (angle + 140) % 360;
+
+		const rad = angle * Math.PI / 180;
+		const x = Math.cos(rad) * radius;
+		const y = Math.sin(rad) * radius;
+
+		noBtn.style.transform = `translate(${x}px, ${y}px)`;
+	};
+
+	const triggerMove = (e) => {
+		e.preventDefault();
+
+		if (hoverCount < phrases.length) {
+			noBtn.textContent = phrases[hoverCount];
+		}
+
+		moveButton();
+		hoverCount++;
+
+		if (hoverCount > phrases.length) {
+			noBtn.style.pointerEvents = 'none';
+			noBtn.style.opacity = '0';
+			setTimeout(() => noBtn.style.display = 'none', 300);
+		}
+	};
+
+	// Desktop hover
+	noBtn.addEventListener('mouseenter', triggerMove);
+
+	// Desktop click
+	noBtn.addEventListener('click', triggerMove);
+
+	// Mobile tap
+	noBtn.addEventListener('touchstart', triggerMove, { passive: false });
+</script>
+
+</body>
+</html>
